@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="F:/javaweb视频/慕课网ssm/mybaits机器人/jar包/mybatis-3.4.5/mybatis-3.4.5.jar"/>
+	<classpathentry kind="lib" path="F:/javaweb视频/慕课网ssm/mybaits机器人/jar包/mybatis-3.4.5/lib"/>
+	<classpathentry kind="lib" path="F:/javaweb视频/慕课网ssm/mybaits机器人/jar包/mybatis-3.4.5/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="F:/javaweb视频/慕课网ssm/mybaits机器人/mysql-connector-java-5.1.18-bin.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
