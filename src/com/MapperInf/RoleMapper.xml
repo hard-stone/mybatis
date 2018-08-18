@@ -2,11 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.MapperInf.RoleMapper">
-
-	<insert id="insertRole" parameterType="role">
-		insert into t_role(role_name, note) values(#{roleName}, #{note})
-	</insert>
-
 	<delete id="deleteRole" parameterType="long">
 		delete from t_role where id= #{id}
 	</delete>
@@ -20,8 +15,43 @@
 		role_name as roleName, note from t_role where id = #{id}
 	</select>
 
-	<select id="findRoles" parameterType="string" resultType="role">
-		select id, role_name as roleName, note from t_role
-		where role_name like concat('%', #{roleName}, '%')
+	
+	<!-- useGeneratedKeys.设置为ture，打开。获得自增长的键， 返回获得的键值 赋给  keyProperty-->
+	<insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyProperty="id">
+		insert into t_role(role_name, note) values(#{roleName}, #{note})
+	</insert>
+
+	<!-- 利用吗默认开启的自动映射，将数据库的role_name做别名为 bean的属性名称roleName，可以使别名和bean对应，自动映射-->
+	<select id="findRolesByrolename" parameterType="string" resultType="role">
+		select id,role_name as roleName ,note from t_role where role_name = #{roleName}
+	</select>
+	
+	<!-- id对应接口的方法名称,note, t_role, role_name 对应数据库的每个字段的名字，roleName 对应接口输入参数-->
+	<select id="getNoteByRole_name" parameterType="string" resultType="string">
+		select note from t_role where role_name = #{roleName}
+	</select>
+	
+	<!-- 这条语句返回一个List，但是 resultType的值应该是List里面的对象，这里是List<Role>-->
+	<select id="findRolelistByrolename" parameterType="String" resultType="Role">
+		select id,role_name as roleName,note from t_role where role_name = #{roleName}
+	</select>
+	
+	<!-- 这条语句返回一个List，但是 resultType的值应该是List里面的对象，这里是List<Role>-->
+	<select id="findRolelistById" parameterType="String" resultType="Role">
+		select id,role_name as roleName,note from t_role where role_name = #{roleName}
+	</select>
+	
+	<!-- 通过注解传入多个参数 -->
+	<select id ="findRoleByAnnotation" resultType ="Role">
+		select id,role_name as roleName,note from t_role 
+		where role_name = #{roleName}
+		and note = #{note}
+	</select>
+	
+	<!-- 通过javabean传入多个参数 -->
+	<select id = "findRoleByBean" parameterType="roleParams" resultType = "Role">
+		select id,role_name as roleName,note from t_role 
+		where role_name = #{roleParams.roleName}
+		and note = #{roleParams.note}
 	</select>
 </mapper>
