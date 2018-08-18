@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.MapperInf.RoleMapper">
+	<!--定义resultMap返回集合集类型 -->
+	<resultMap id="roleMap" type="role">
+		<id property="id" column="id"/>
+		<result property="roleName" column="role_name"/>
+		<result property="note" column="note"/>
+	</resultMap> 
+
 	<delete id="deleteRole" parameterType="long">
 		delete from t_role where id= #{id}
 	</delete>
@@ -36,9 +43,9 @@
 		select id,role_name as roleName,note from t_role where role_name = #{roleName}
 	</select>
 	
-	<!-- 这条语句返回一个List，但是 resultType的值应该是List里面的对象，这里是List<Role>-->
-	<select id="findRolelistById" parameterType="String" resultType="Role">
-		select id,role_name as roleName,note from t_role where role_name = #{roleName}
+	<!-- 这条语句返回一个List，返回类型用resultMap结果集映射，resultMap在最上面定义-->
+	<select id="findRolelistById" parameterType="Long" resultMap="roleMap">
+		select id,role_name as roleName,note from t_role where id = #{id}
 	</select>
 	
 	<!-- 通过注解传入多个参数 -->

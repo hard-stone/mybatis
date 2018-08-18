@@ -17,10 +17,11 @@ public class Mybatistest {
 		Logger log = Logger.getLogger(Mybatistest.class);
 //		insertRole();
 //		getNoteByRole_name();
-//		getRole();
+		getRole();
 //		findRolelistByrolename();
 //		findRoleByAnnotation();
-		findRoleByBean();
+//		findRoleByBean();
+//		findRolelistById();
 	}
 
 	/**
@@ -124,6 +125,31 @@ public class Mybatistest {
 			System.out.println("得到sqlsession");
 			RoleMapper roleMapper = sqlSession.getMapper(com.MapperInf.RoleMapper.class);
 			List<Role> roleslist = roleMapper.findRolelistByrolename("renbin");
+			sqlSession.commit();
+			for (int i = 0; i < roleslist.size(); i++) {
+				System.out.println("i:"+roleslist.get(i).getId()+","+roleslist.get(i).getRoleName()+","+roleslist.get(i).getNote());
+			}
+			System.out.println("commit sqlsession");
+		} catch (Exception e) {
+			// TODO: handle exception
+			sqlSession.rollback();
+			e.printStackTrace();
+			System.out.println("rollback");
+		} finally{
+			if (sqlSession!=null) {
+				sqlSession.close();
+				System.out.println("close sqlsession");
+			}
+		}
+	}
+	
+	public static void findRolelistById() {
+		SqlSession sqlSession=null;
+		try {
+			sqlSession = SqlSessionFactoryUtils.openSqlSession();
+			System.out.println("得到sqlsession");
+			RoleMapper roleMapper = sqlSession.getMapper(com.MapperInf.RoleMapper.class);
+			List<Role> roleslist = roleMapper.findRolelistById(4L);
 			sqlSession.commit();
 			for (int i = 0; i < roleslist.size(); i++) {
 				System.out.println("i:"+roleslist.get(i).getId()+","+roleslist.get(i).getRoleName()+","+roleslist.get(i).getNote());

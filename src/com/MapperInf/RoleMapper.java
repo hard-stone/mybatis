@@ -15,6 +15,7 @@ public interface RoleMapper {
 	public Role findRolesByrolename(String roleName);
 	public String getNoteByRole_name(String roleName);
 	public List<Role> findRolelistByrolename(String roleName);
+	public List<Role> findRolelistById(long id);
 	//传入多个参数，用Param注解定义多个参数变量
 	public List<Role> findRoleByAnnotation(@Param("roleName")String roleName,@Param("note")String note);
 	//传入多个参数，通过javabean传入
